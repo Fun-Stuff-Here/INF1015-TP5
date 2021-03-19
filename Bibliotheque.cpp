@@ -47,12 +47,12 @@ void Bibliotheque::ajouterFilms(const std::string& nomFichier)
 	for (int i : iter::range(nFilms))
 	{
 		i = 0;
-		unique_ptr<Film> film = move(lireFilm(fichier));
+		shared_ptr<Film> film = move(lireFilm(fichier));
 		items_.push_back(move(film));
 	}
 }
 
-std::unique_ptr<Film> Bibliotheque::lireFilm(istream& fichier)
+std::shared_ptr<Film> Bibliotheque::lireFilm(istream& fichier)
 {
 	string titre = lireString(fichier);
 	string realisateur = lireString(fichier);
@@ -60,16 +60,15 @@ std::unique_ptr<Film> Bibliotheque::lireFilm(istream& fichier)
 	int recette = lireUint16(fichier);
 	int nActeurs = lireUint8(fichier);
 	//Allocation de la liste d'acteur
-	std::vector<std::shared_ptr<Acteur>> acteurs;
+	Liste<Acteur> acteurs(nActeurs);
 
 	//Le warning dit que i n'est pas reference sooooooooo on lui fait faire une comparaison 
 	for (int i : iter::range(nActeurs))
 	{
-		i = 0;
-		acteurs.push_back(lireActeur(fichier));
+		acteurs[i] = lireActeur(fichier);
 	}
 	return make_unique<Film>(titre, anneeSortie, realisateur, recette,
-		(std::vector<std::shared_ptr<Acteur>>&&)acteurs);
+		(Liste<Acteur>&&)acteurs);
 
 }
 
@@ -141,11 +140,11 @@ shared_ptr<Acteur> Bibliotheque::trouverActeur(const string& nom) const
 }
 
 
-void Bibliotheque::enlever(unique_ptr<Item>& item)
+void Bibliotheque::enlever(shared_ptr<Item>& item)
 {
 	items_.erase(find(items_.begin(), items_.end(), item));
 }
-void Bibliotheque::ajouter(unique_ptr<Item>&& item)
+void Bibliotheque::ajouter(shared_ptr<Item>&& item)
 {
 	items_.push_back(move(item));
 }
@@ -190,3 +189,7 @@ std::ostream& operator<< (std::ostream& ostream, const Bibliotheque& bibliothequ
 }
 
 
+std::vector<std::shared_ptr<Item>>& Bibliotheque::getItems()
+{
+	return items_;
+}

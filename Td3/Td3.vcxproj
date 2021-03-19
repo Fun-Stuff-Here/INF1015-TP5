@@ -171,11 +171,15 @@
     <ClInclude Include="..\Film.hpp" />
     <ClInclude Include="..\FilmLivre.hpp" />
     <ClInclude Include="..\Item.hpp" />
+    <ClInclude Include="..\Liste.hpp" />
     <ClInclude Include="..\Livre.hpp" />
     <ClInclude Include="..\verification_allocation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\films.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="livres.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,7 +15,7 @@ using namespace iter;
 
 
 Film::Film(const std::string& titre, int annee, std::string& realisateur,
-	int recette, std::vector<std::shared_ptr<Acteur>>&& acteurs)
+	int recette, Liste<Acteur>&& acteurs)
 	:Item(titre, annee),
 	realisateur_(realisateur),
 	recette_(recette)
@@ -52,4 +52,15 @@ Film::~Film()
 	{
 		acteur = nullptr;
 	}
+}
+
+
+Liste<Acteur> Film::getActeurs() const
+{
+	return acteurs_;
+}
+
+int Film::getRecette() const
+{
+	return recette_;
 }

@@ -17,6 +17,7 @@
 
 #include "Item.hpp"
 #include "Acteur.hpp"
+#include "Liste.hpp"
 
 
 class Film : virtual public Item {
@@ -24,15 +25,17 @@ public:
 	Film() = default;
 	~Film();
 	Film(const std::string& titre, int annee, std::string& realisateur,
-		 int recette, std::vector<std::shared_ptr<Acteur>>&& acteurs);
+		 int recette, Liste<Acteur>&& acteurs);
 
 	std::shared_ptr<Acteur> trouverActeur(const std::string& nomRechercher) const;
+	Liste<Acteur> getActeurs() const;
+	int getRecette() const;
 
 protected:
 	void print(std::ostream& ostream) const override;
 	std::string realisateur_ = "";
 	int recette_;
-	std::vector<std::shared_ptr<Acteur>> acteurs_;
+	Liste<Acteur> acteurs_;
 };
 
 

@@ -140,7 +140,7 @@ shared_ptr<Acteur> Bibliotheque::trouverActeur(const string& nom) const
 }
 
 
-void Bibliotheque::enlever(shared_ptr<Item>& item)
+void Bibliotheque::enlever(const shared_ptr<Item>& item)
 {
 	items_.erase(find(items_.begin(), items_.end(), item));
 }

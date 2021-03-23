@@ -1,8 +1,8 @@
 ﻿/*
-* Programme qui lit un fichier de film et livres et les manipules, TD4-INF1015
+* Programme qui lit un fichier de film et livres et les manipules, TD5-INF1015
 *\file		TP5.cpp
 *\author	Elizabeth Michaud 2073093, Nicolas Dépelteau 2083544
-*\date		7 mars 2021
+*\date		23 mars 2021
 * Créé le	26 février 2021
 */
 
@@ -41,20 +41,22 @@ int main()
 
 	bibliotheque.ajouterFilms("films.bin");
 	bibliotheque.ajouterLivres("livres.txt");
-
-
-
+	
 	Film* hobbitFilm = bibliotheque.trouverFilmSi([](Film* film) -> bool {return (film->getTitre().find("Le Hobbit") != std::string::npos); });
 
 	Livre* hobbitLivre = bibliotheque.trouverLivreSi([](Livre* livre) -> bool {return (livre->getTitre().find("Hobbit") != std::string::npos); });
 
-	auto theHobbit = make_unique<FilmLivre>(*hobbitLivre,*hobbitFilm);
+	auto theHobbit = make_shared<FilmLivre>(*hobbitLivre,*hobbitFilm);
 
-	bibliotheque.ajouter(move(theHobbit));
+	bibliotheque.ajouter(theHobbit);
 
 	bibliotheque.trouverFilmSi([](Film* film) -> bool {return (film->getTitre()== "Not there"); });
 
 	bibliotheque.trouverLivreSi([](Livre* livre) -> bool {return (livre->getTitre() == "Not there"); });
+	std::cout << bibliotheque << std::endl;
+
+	bibliotheque.enlever(theHobbit);
+	bibliotheque.ajouter(theHobbit);
 
 	std::cout << endl << endl;
 	afficherSection("TD5");
@@ -160,8 +162,9 @@ int main()
 
 	std::copy_if( bibliothequeForwardListe.begin(), bibliothequeForwardListe.end(),
 		std::back_inserter(films),
-		[](ItemPtr item) {return dynamic_cast<Film*>(item.get());} //warning a fix
+		[](ItemPtr item) {return static_cast<bool>(dynamic_cast<Film*>(item.get()));}
 	);
+
 
 	afficherListeItems<std::vector<ItemPtr>>(films);
 

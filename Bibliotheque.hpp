@@ -44,7 +44,7 @@ public:
 	void ajouterFilms(const std::string& nomFichier);
 	void ajouterLivres(const std::string& nomFichier);
 	std::shared_ptr<Acteur> trouverActeur(const std::string& nom) const;
-	void enlever(std::shared_ptr<Item>& item);
+	void enlever(const std::shared_ptr<Item>& item);
 	void ajouter(std::shared_ptr<Item>&& item);
 	Film* trouverFilmSi(const std::function<bool(Film*)>& critere) const;
 	Livre* trouverLivreSi(const std::function<bool(Livre*)>& critere) const;

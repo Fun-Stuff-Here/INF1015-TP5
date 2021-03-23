@@ -23,22 +23,22 @@ public:
 	using PointerType = ValueType*;
 	using ReferenceType = ValueType&;
 public:
-	ListeIterator(PointerType ptr)
-		:mPtr(ptr) {}
+	ListeIterator(PointerType element)
+		:element_(element) {}
 
-	ListeIterator& operator++() { mPtr++; return *this; }
+	ListeIterator& operator++() { element_++; return *this; }
 	ListeIterator& operator++(int) { ListeIterator iterator = *this; ++(*this); return iterator; }
-	ListeIterator& operator--() { mPtr--; return *this; }
+	ListeIterator& operator--() { element_--; return *this; }
 	ListeIterator& operator--(int) { ListeIterator iterator = *this; --(*this); return iterator; }
 
-	ReferenceType operator[] (int index) { return *(mPtr + index); }
-	PointerType operator->() { return mPtr; }
-	ReferenceType operator*() { return *mPtr; }
+	ReferenceType operator[] (int index) { return *(element_ + index); }
+	PointerType operator->() { return element_; }
+	ReferenceType operator*() { return *element_; }
 
-	bool operator==(const ListeIterator& other) const { return mPtr == other.mPtr; }
-	bool operator!=(const ListeIterator& other) const { return !(*this == other); }
+	bool operator==(const ListeIterator& autre) const { return element_ == autre.element_; }
+	bool operator!=(const ListeIterator& autre) const { return !(*this == autre); }
 private:
-	PointerType mPtr;
+	PointerType element_;
 };
 
 template<typename T>

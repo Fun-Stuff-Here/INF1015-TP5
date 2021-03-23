@@ -18,9 +18,6 @@
     <ClCompile Include="..\bibliotheque_cours.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ListeFilms.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\verification_allocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
